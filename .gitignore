@@ -161,4 +161,8 @@ cython_debug/
 #  option (not recommended) you can uncomment the following to ignore the entire idea folder.
 #.idea/
 
-code/datasets/iris*
+# Data ignoring
+data/file.txt
+data/meta
+data/test
+data/train
