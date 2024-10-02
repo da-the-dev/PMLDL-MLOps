@@ -1,7 +1,24 @@
-from tqdm import tqdm
+import os
 import torch
+import pickle
+from torch import nn
+from tqdm import tqdm
+from src.datasets.transforms import transform
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
+
+
+def inference(model, image, labels, transform=transform):
+    image = transform(image)
+    image = image.unsqueeze(0)
+    image = image.to(device)
+
+    with torch.no_grad():
+        outputs = model(image)
+        probabilities = nn.Softmax(dim=1)(outputs)
+        class_id = torch.argmax(probabilities, dim=1)
+
+        return labels[class_id.item()]
 
 
 def train(
@@ -76,3 +93,13 @@ def train(
         print(
             f"Epoch {epoch+1}/{epoch} - Avg Val Loss: {avg_val_loss:.4f}, Val Accuracy: {val_accuracy:.2f}%\n"
         )
+
+
+def save_model(model, path):
+    with open(path, "wb+") as f:
+        f.write(pickle.dumps(model))
+
+
+def load_model(name):
+    with open(os.path.join(os.getcwd(), "models", name), "rb") as f:
+        return pickle.loads(f.read())

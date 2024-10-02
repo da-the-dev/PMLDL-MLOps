@@ -3,9 +3,8 @@ import sys
 from torch import nn, optim
 from torchvision import models
 
-from src.util.save_model import save_model
+from src.util.ml import save_model, train
 from src.util.args import args
-from src.src.train_loop import train
 from src.datasets.dataloaders import train_dl, test_dl, course_labels
 
 import warnings

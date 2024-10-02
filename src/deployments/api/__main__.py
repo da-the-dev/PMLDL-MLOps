@@ -1,42 +1,17 @@
-import os
-import pickle
 import torch
 from torch import nn
 from PIL import Image
-from flask import Flask, jsonify, request
+from flask import Flask, request
 
 from src.datasets.transforms import transform
+from src.datasets.labels import course_classes
+from src.util.ml import load_model, device
 
+MODEL = "effnet-b2_epoch_10.plk"
 
 app = Flask(__name__)
 
-device = "cuda" if torch.cuda.is_available() else "cpu"
-model_file = open(os.path.join(os.getcwd(), "models", "effnet-b2_epoch_10.pkl"), "rb")
 model = None
-
-
-course_classes = [
-    "aquatic mammals",
-    "fish",
-    "flowers",
-    "food containers",
-    "fruit and vegetables",
-    "household electrical devices",
-    "household furniture",
-    "insects",
-    "large carnivores",
-    "large man-made outdoor things",
-    "large natural outdoor scenes",
-    "large omnivores and herbivores",
-    "medium-sized mammals",
-    "non-insect invertebrates",
-    "people",
-    "reptiles",
-    "small mammals",
-    "trees",
-    "vehicles 1",
-    "vehicles 2",
-]
 
 
 @app.post("/classify")
@@ -69,7 +44,7 @@ def classify():
 
 
 if __name__ == "__main__":
-    model = pickle.loads(model_file.read())
+    model = load_model(MODEL)
 
     model.to(device)
     model.eval()

@@ -1,8 +1,7 @@
 from PIL import Image
 import streamlit as st
 
-from src.src.inference import inference
-from src.src.load_model import load_model
+from src.util.ml import inference, load_model
 from src.datasets.labels import course_classes
 
 MODEL = "effnet-b2_epoch_10.pkl"
