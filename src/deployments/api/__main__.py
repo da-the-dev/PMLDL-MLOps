@@ -9,10 +9,17 @@ from src.datasets.labels import course_classes
 from src.util.ml import load_model, device
 
 MODEL = "effnet-b2_epoch_10.pkl"
+if os.getenv("PROD"):
+    MODEL = "model.pkl"
 
 app = Flask(__name__)
 
 model = None
+
+
+@app.get("/")
+def hello():
+    return "Hello world!", 200
 
 
 @app.post("/classify")
@@ -51,6 +58,9 @@ if __name__ == "__main__":
     model.eval()
 
     if os.getenv("PROD"):
-        app.run(host="0.0.0.0", port=8000)  # Define your desired port here (e.g., 8000)
+        app.run(
+            # host="0.0.0.0",
+            port=8000,
+        )
     else:
         app.run(debug=True)
