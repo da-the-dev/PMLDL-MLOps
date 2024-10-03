@@ -15,4 +15,20 @@ services:
             - driver: nvidia
               count: 1
               capabilities: [gpu]
+  app:
+    image: deployment-app
+    build: 
+      context: .
+      dockerfile: app.Dockerfile
+    ports:
+      - 8000:8000
+    volumes:
+      - ${MODEL_PATH}:/models/model.pkl
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
 

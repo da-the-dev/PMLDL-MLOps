@@ -1,0 +1,12 @@
+[server]
+headless = true
+port = 8000
+enableCORS = false
+enableXsrfProtection = true  # Protect against cross-site request forgery
+maxUploadSize = 1000  # Increase if needed (in MB)
+
+[logger]
+level = "error"  # Reduces log verbosity in production
+
+[theme]
+base = "dark"  # Optional: Set the default theme (can be "dark" or "light")
