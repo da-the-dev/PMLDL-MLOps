@@ -1,0 +1,16 @@
+services:
+  api:
+    image: deployment-api
+    build: 
+      context: .
+      dockerfile: api.Dockerfile
+    ports:
+      - 8000:8000
+
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]

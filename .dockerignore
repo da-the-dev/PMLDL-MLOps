@@ -1,0 +1,14 @@
+models/effnet-b2_epoch_0.pkl
+models/effnet-b2_epoch_1.pkl
+models/effnet-b2_epoch_2.pkl
+models/effnet-b2_epoch_3.pkl
+models/effnet-b2_epoch_4.pkl
+models/effnet-b2_epoch_5.pkl
+models/effnet-b2_epoch_6.pkl
+models/effnet-b2_epoch_7.pkl
+models/effnet-b2_epoch_8.pkl
+models/effnet-b2_epoch_9.pkl
+models/resnet18.pkl
+.venv
+data
+.git

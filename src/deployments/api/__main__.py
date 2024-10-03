@@ -1,3 +1,4 @@
+import os
 import torch
 from torch import nn
 from PIL import Image
@@ -7,7 +8,7 @@ from src.datasets.transforms import transform
 from src.datasets.labels import course_classes
 from src.util.ml import load_model, device
 
-MODEL = "effnet-b2_epoch_10.plk"
+MODEL = "effnet-b2_epoch_10.pkl"
 
 app = Flask(__name__)
 
@@ -48,4 +49,8 @@ if __name__ == "__main__":
 
     model.to(device)
     model.eval()
-    app.run(debug=True)
+
+    if os.getenv("PROD"):
+        app.run(host="0.0.0.0", port=8000)  # Define your desired port here (e.g., 8000)
+    else:
+        app.run(debug=True)
