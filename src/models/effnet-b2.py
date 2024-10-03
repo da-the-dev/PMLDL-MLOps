@@ -14,7 +14,7 @@ warnings.filterwarnings("ignore")
 
 import logging
 
-logger = logging.getLogger("resnet18")
+logger = logging.getLogger("effnet-b2")
 logging.basicConfig(stream=sys.stdout, encoding="utf-8", level=logging.DEBUG)
 
 
