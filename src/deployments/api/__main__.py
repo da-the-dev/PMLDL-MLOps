@@ -36,6 +36,7 @@ def classify():
 
     try:
         image = Image.open(file.stream)
+        image = image.convert("RGB")
         image = transform(image)
         image = image.unsqueeze(0)
         image = image.to(device)
