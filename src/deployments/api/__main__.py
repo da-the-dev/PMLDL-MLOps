@@ -1,4 +1,5 @@
 import os
+import traceback
 import torch
 from torch import nn
 from PIL import Image
@@ -49,6 +50,8 @@ def classify():
             return course_classes[class_id.item()], 200
 
     except Exception as e:
+        traceback.print_exc()
+        
         return str(e), 500
 
 
