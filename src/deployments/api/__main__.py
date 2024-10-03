@@ -3,7 +3,7 @@ import traceback
 import torch
 from torch import nn
 from PIL import Image
-from flask import Flask, request
+from flask import Flask, jsonify, request
 
 from src.datasets.transforms import transform
 from src.datasets.labels import course_classes
@@ -47,7 +47,7 @@ def classify():
             probabilities = nn.Softmax(dim=1)(outputs)
             class_id = torch.argmax(probabilities, dim=1)
 
-            return course_classes[class_id.item()], 200
+            return jsonify({"class": course_classes[class_id.item()]}), 200
 
     except Exception as e:
         traceback.print_exc()
