@@ -11,10 +11,8 @@ if os.getenv("PROD"):
     
 model = load_model(MODEL)
 
-st.text("Fixed width text")
-
 uploaded_image = st.file_uploader(
-    "Choose an to classify...",
+    "Choose an image to classify...",
     type=["jpg", "jpeg", "png"],
 )
 
