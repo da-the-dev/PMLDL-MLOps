@@ -33,5 +33,4 @@ ENV STREAMLIT_LOG_LEVEL=error
 
 CMD ["poetry", "run", "streamlit", "run", "src/deployments/app/__main__.py", "--server.port", "8000", "--server.address", "0.0.0.0"]
 
-
-EXPOSE 8000
+EXPOSE 3000

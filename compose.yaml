@@ -21,7 +21,7 @@ services:
       context: .
       dockerfile: app.Dockerfile
     ports:
-      - 8000:8000
+      - 3000:3000
     volumes:
       - ${MODEL_PATH}:/models/model.pkl
     deploy:
