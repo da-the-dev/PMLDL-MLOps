@@ -28,7 +28,10 @@ def train(
     optimizer,
     train_dl,
     test_dl,
+    checkpoint_path=None,
+    model_name=None,
 ):
+    """General-purpose model training function"""
     model.to(device)
 
     for epoch in range(epochs):
@@ -93,6 +96,13 @@ def train(
         print(
             f"Epoch {epoch+1}/{epoch} - Avg Val Loss: {avg_val_loss:.4f}, Val Accuracy: {val_accuracy:.2f}%\n"
         )
+
+        # Checkpointing
+        if checkpoint_path and model_name:
+            save_model(
+                model,
+                os.path.join(checkpoint_path, f"{model_name}-epoch-{epoch+1}.pkl"),
+            )
 
 
 def save_model(model, path):

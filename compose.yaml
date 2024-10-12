@@ -21,14 +21,14 @@ services:
       context: .
       dockerfile: app.Dockerfile
     ports:
-      - 3000:3000
-    volumes:
-      - ${MODEL_PATH}:/models/model.pkl
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: 1
-              capabilities: [gpu]
+      - 8501:8501
+    # volumes:
+    #   - ${MODEL_PATH}:/models/model.pkl
+    # deploy:
+    #   resources:
+    #     reservations:
+    #       devices:
+    #         - driver: nvidia
+    #           count: 1
+    #           capabilities: [gpu]
 

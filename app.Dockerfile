@@ -15,22 +15,18 @@ ENV PATH="${PATH}:/root/.local/bin"
 COPY pyproject.toml poetry.lock ./
 
 # Install dependencies
-RUN poetry install
+RUN poetry install --only app
 
 # Copy source code
 COPY . .
 
 ENV PROD=true
-ENV PYTHONPATH=/
 
-# Set environment variables for Streamlit production
-ENV STREAMLIT_SERVER_HEADLESS=true
-ENV STREAMLIT_SERVER_PORT=8000
-ENV STREAMLIT_SERVER_ENABLECORS=false
-ENV STREAMLIT_SERVER_ENABLE_XSRF_PROTECTION=true
-ENV STREAMLIT_SERVER_FILE_WATCHER_TYPE=none
-ENV STREAMLIT_LOG_LEVEL=error
+ENV STREAMLIT_SERVER_ENABLE_WEBSOCKET_COMPRESSION=false
 
-CMD ["poetry", "run", "streamlit", "run", "src/deployments/app/__main__.py", "--server.port", "8000", "--server.address", "0.0.0.0"]
+EXPOSE 8501
 
-EXPOSE 3000
+HEALTHCHECK CMD curl --fail http://localhost:8501/_stcore/health
+
+ENTRYPOINT ["poetry", "run", "streamlit", "run", "src/deployments/app/__main__.py", "--server.port", "8501", "--server.address", "0.0.0.0"]
+

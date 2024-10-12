@@ -17,9 +17,15 @@ tqdm = "^4.66.5"
 flask = "^3.0.3"
 streamlit = "^1.38.0"
 efficientnet-pytorch = "^0.7.1"
+waitress = "^3.0.0"
+
+[tool.poetry.group.app.dependencies]
+streamlit = "^1.38.0"
 
 [tool.poetry.group.dev.dependencies]
 ipykernel = "^6.29.5"
+
+
 
 [build-system]
 requires = ["poetry-core"]

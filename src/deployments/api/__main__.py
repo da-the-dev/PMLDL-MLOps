@@ -1,5 +1,6 @@
 import os
 import traceback
+import numpy as np
 import torch
 from torch import nn
 from PIL import Image
@@ -44,14 +45,16 @@ def classify():
 
         with torch.no_grad():
             outputs = model(image)
-            probabilities = nn.Softmax(dim=1)(outputs)
-            class_id = torch.argmax(probabilities, dim=1)
 
-            return jsonify({"class": course_classes[class_id.item()]}), 200
+            sm = torch.softmax(outputs, 1)
+            
+            index = sm.argmax(1).item()
+
+            return jsonify({"class": course_classes[index]}), 200
 
     except Exception as e:
         traceback.print_exc()
-        
+
         return str(e), 500
 
 
@@ -62,9 +65,7 @@ if __name__ == "__main__":
     model.eval()
 
     if os.getenv("PROD"):
-        app.run(
-            host="0.0.0.0",
-            port=8000,
-        )
+        from waitress import serve
+        serve(app, host="0.0.0.0", port=8000)
     else:
         app.run(debug=True)

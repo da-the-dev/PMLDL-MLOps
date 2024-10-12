@@ -19,8 +19,6 @@ Accuracy: 0.88
 
 ![alt text](image.png)
 
-
-
 ## Flask backend routes
 
 # How to start
